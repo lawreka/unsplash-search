@@ -38,7 +38,7 @@ export const Photos = () => {
     const loadingState = loading === true;
     const emptyNoQueryYet = !errorState && !loadingState && query.length < 1 && results.length < 1;
     const emptyNoResults = !errorState && !loadingState && query.length > 0 && results.length < 1;
-    // const resultsOrLoading = loadingState || results.length > 0;
+    // const resultsState = loadingState || results.length > 0;
 
     if (errorState == true) {
         return <Error />
@@ -52,9 +52,22 @@ export const Photos = () => {
         return (
             <NoResults color={color} query={query} />
         )
+    } else if (loadingState) {
+        return (
+            <PhotosWrapper data-testid="results-loading">
+                <PhotosGrid>
+                    {resultsPlaceholder.map((n) => {
+                        return (
+                            <GridPlaceholder key={`loading-${n}`} $src={""} $loading={loading} />
+                        )
+                    }
+                    )}
+                </PhotosGrid>
+            </PhotosWrapper>
+        )
     } else {
         return (
-            <PhotosWrapper data-testid="results-or-loading">
+            <PhotosWrapper data-testid="results-grid">
                 <PhotosGrid>
                     {resultsPlaceholder.map((n) => {
                         const key = currentPageResults?.[n]?.id || n;

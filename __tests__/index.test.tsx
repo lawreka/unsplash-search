@@ -38,8 +38,6 @@ describe('Search Page', () => {
             preloadedState: {
                 ...initialState,
                 results: [{ id: 123, urls: { regular: "1" }, description: "1" }],
-                query: "meow"
-
             }
         })
 
@@ -62,7 +60,9 @@ describe('Photos', () => {
         expect(error).toBeNull()        
         const empty = screen.queryByTestId('results-no-results')
         expect(empty).toBeNull()
-        const results = screen.queryByTestId('results-or-loading')
+        const loading = screen.queryByTestId('results-loading')
+        expect(loading).toBeNull()
+        const results = screen.queryByTestId('results-grid')
         expect(results).toBeNull()
     })
     it('renders error', () => {
@@ -79,7 +79,9 @@ describe('Photos', () => {
         expect(start).toBeNull()
         const empty = screen.queryByTestId('results-no-results')
         expect(empty).toBeNull()
-        const results = screen.queryByTestId('results-or-loading')
+        const loading = screen.queryByTestId('results-loading')
+        expect(loading).toBeNull()
+        const results = screen.queryByTestId('results-grid')
         expect(results).toBeNull()
     })
 
@@ -97,7 +99,28 @@ describe('Photos', () => {
         expect(error).toBeNull()
         const start = screen.queryByTestId('results-no-query')
         expect(start).toBeNull()
-        const results = screen.queryByTestId('results-or-loading')
+        const loading = screen.queryByTestId('results-loading')
+        expect(loading).toBeNull()
+        const results = screen.queryByTestId('results-grid')
+        expect(results).toBeNull()
+    })
+    it('renders loading', () => {
+        renderWithProviders(<Photos />, {
+            preloadedState: {
+                ...initialState,
+                loading: true
+            }
+        })
+
+        const loading = screen.getByTestId('results-loading')
+        expect(loading).toBeInTheDocument()
+        const empty = screen.queryByTestId('results-no-results')
+        expect(empty).toBeNull()
+        const error = screen.queryByTestId('results-error')
+        expect(error).toBeNull()
+        const start = screen.queryByTestId('results-no-query')
+        expect(start).toBeNull()
+        const results = screen.queryByTestId('results-grid')
         expect(results).toBeNull()
     })
     it('renders results', () => {
@@ -108,13 +131,15 @@ describe('Photos', () => {
             }
         })
 
-        const results = screen.getByTestId('results-or-loading')
+        const results = screen.getByTestId('results-grid')
         expect(results).toBeInTheDocument() 
         const empty = screen.queryByTestId('results-no-results')
         expect(empty).toBeNull()
         const error = screen.queryByTestId('results-error')
         expect(error).toBeNull()
         const start = screen.queryByTestId('results-no-query')
-        expect(start).toBeNull()  
+        expect(start).toBeNull()
+        const loading = screen.queryByTestId('results-loading')
+        expect(loading).toBeNull()
     })
 })
