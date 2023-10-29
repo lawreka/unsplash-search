@@ -28,7 +28,6 @@ export const Color = () => {
 
     const handleColorChange = (event: SelectChangeEvent) => {
         dispatch(setColor(event.target.value));
-        dispatch(setPage(1))
     };
 
     const ColorLabel = ({ value }: { value: string }) => {

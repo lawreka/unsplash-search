@@ -12,7 +12,6 @@ export const Order = () => {
 
     const handleOrderChange = (event: SelectChangeEvent) => {
         dispatch(setOrderBy(event.target.value))
-        dispatch(setPage(1))
     }
 
     const OrderLabel = ({ value }: { value: string }) => {
