@@ -8,7 +8,7 @@ import StyledComponentsRegistry from 'lib/registry'
 
 export const metadata: Metadata = {
     title: "Unsplash search app",
-    description: `Kathryn's awesome coding test for Zora.co`,
+    description: `Search for photos wow`,
 }
 
 const inter = Inter({ subsets: ['latin'] })

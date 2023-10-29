@@ -1,0 +1,9 @@
+To run:
+
+* touch .env file locally and copy your UNSPLASH_ACCESS_KEY there
+* $ npm run build
+* $ npm run start
+
+To run tests:
+
+* $ npm run test
