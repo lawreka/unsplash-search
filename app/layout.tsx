@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 
 import './global.css'
 
-import StyledComponentsRegistry from './lib/registry'
+import StyledComponentsRegistry from 'lib/registry'
 
 export const metadata: Metadata = {
     title: "Unsplash search app",

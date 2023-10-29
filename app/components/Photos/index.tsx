@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useAppSelector } from "../../redux/hooks";
-import { getLoading, getResults, getPage, getError, getQuery, getColor } from "../../redux/searchSlice";
+import { useAppSelector } from "redux/hooks";
+import { getLoading, getResults, getPage, getError, getQuery, getColor } from "redux/searchSlice";
 import { PhotosWrapper, PhotosGrid, GridPlaceholder, ErrorWrapper } from "./styled";
 
 export const Photos = () => {

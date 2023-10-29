@@ -3,8 +3,8 @@ import UnfoldMoreIcon from '@mui/icons-material/UnfoldMore';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { setOrderBy, getOrderBy, setPage } from '../../../redux/searchSlice';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { setOrderBy, getOrderBy, setPage } from 'redux/searchSlice';
 
 export const Order = () => {
     const dispatch = useAppDispatch();

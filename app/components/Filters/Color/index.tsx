@@ -5,8 +5,8 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import PaletteIcon from '@mui/icons-material/Palette';
 
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { getColor, setColor, setPage } from '../../../redux/searchSlice';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
+import { getColor, setColor, setPage } from 'redux/searchSlice';
 
 const colorValues = [
     { value: "none", label: "All colors" },

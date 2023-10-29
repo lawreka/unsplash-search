@@ -1,7 +1,7 @@
 import Pagination from '@mui/material/Pagination';
 
-import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
-import { getPage, setPage, getResults } from '../../../redux/searchSlice';
+import { useAppSelector, useAppDispatch } from 'redux/hooks';
+import { getPage, setPage, getResults } from 'redux/searchSlice';
 
 import { PaginationWrapper } from './styled';
 export const Pages = () => {

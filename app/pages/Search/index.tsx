@@ -2,14 +2,14 @@
 
 import { useEffect } from "react"
 
-import { Photos } from "../../components/Photos"
-import { SearchBar } from "../../components/SearchBar"
-import { Order } from "../../components/Filters/Order"
-import { Color } from "../../components/Filters/Color"
-import { Pages } from "../../components/Photos/Pagination"
-import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { setLoading, setResults, setError, getQuery, getResults, getOrderBy, getColor } from "../../redux/searchSlice"
-import { getSearchResults } from "../../lib/search"
+import { Photos } from "components/Photos"
+import { SearchBar } from "components/SearchBar"
+import { Order } from "components/Filters/Order"
+import { Color } from "components/Filters/Color"
+import { Pages } from "components/Pagination"
+import { useAppDispatch, useAppSelector } from "redux/hooks"
+import { setLoading, setResults, setError, getQuery, getResults, getOrderBy, getColor } from "redux/searchSlice"
+import { getSearchResults } from "lib/search"
 
 import { SearchPageWrapper, SearchBarWrapper } from "./styled"
 
