@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import ClearIcon from '@mui/icons-material/Clear';
 
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { setQuery, getQuery } from '../../redux/searchSlice';
+import { setQuery, getQuery, setPage } from '../../redux/searchSlice';
 
 export const SearchBar = () => {
     const query = useAppSelector(getQuery);
@@ -22,6 +22,7 @@ export const SearchBar = () => {
     }
 
     const handleEnter = () => {
+        dispatch(setPage(1))
         dispatch(setQuery(searchInput))
     }
 

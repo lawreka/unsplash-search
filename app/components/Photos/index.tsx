@@ -1,13 +1,32 @@
+import { useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/hooks";
-import { getLoading, getResults, getError, getQuery } from "../../redux/searchSlice";
+import { getLoading, getResults, getPage, getError, getQuery, setLoading } from "../../redux/searchSlice";
 import { PhotosWrapper, PhotosGrid, GridPlaceholder, ErrorWrapper } from "./styled";
 
 export const Photos = () => {
+    const page = useAppSelector(getPage);
     const results = useAppSelector(getResults);
+    const [currentPageResults, setCurrentPageResults] = useState([]);
+    
     const loading = useAppSelector(getLoading);
     const error = useAppSelector(getError);
     const query = useAppSelector(getQuery);
     const resultsPlaceholder = [0, 1, 2, 3, 4, 5];
+    
+    useEffect(() => {
+        let pages = [];
+
+        const splitIntoPages = (results, n = 6) => {
+            for (let i = 0; i < results.length; i += n) {
+                pages.push(results.slice(i, i + n));
+            }
+        }
+        
+        if (results.length > 0) {
+            splitIntoPages(results);
+            setCurrentPageResults(pages[page - 1]);
+        }
+    }, [page, results])
 
     if (error === true) {
         return (
@@ -22,8 +41,8 @@ export const Photos = () => {
                 <PhotosWrapper>
                     <PhotosGrid>
                         {resultsPlaceholder.map((n) => {
-                            const key = results[n]?.id || n;
-                            const src = results[n]?.urls?.regular || "";
+                            const key = currentPageResults?.[n]?.id || n;
+                            const src = currentPageResults?.[n]?.urls?.regular || "";
                             return (
                                 <GridPlaceholder key={key} $src={src} $loading={loading} />
                             )
@@ -33,7 +52,7 @@ export const Photos = () => {
                 </PhotosWrapper>
             )
         } else {
-            if (query.length > 0) {
+            if (query.length > 0 && results.length < 1) {
                 return (
                     <ErrorWrapper>
                         <div>no results for {query}</div>

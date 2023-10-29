@@ -4,7 +4,7 @@ import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { setOrderBy, getOrderBy } from '../../../redux/searchSlice';
+import { setOrderBy, getOrderBy, setPage } from '../../../redux/searchSlice';
 
 export const Order = () => {
     const dispatch = useAppDispatch();
@@ -12,6 +12,7 @@ export const Order = () => {
 
     const handleOrderChange = (event: SelectChangeEvent) => {
         dispatch(setOrderBy(event.target.value))
+        dispatch(setPage(1))
     }
 
     const OrderLabel = ({ value }: { value: string }) => {

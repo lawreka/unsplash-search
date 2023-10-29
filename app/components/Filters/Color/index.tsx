@@ -6,7 +6,7 @@ import Select, { SelectChangeEvent } from '@mui/material/Select';
 import PaletteIcon from '@mui/icons-material/Palette';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { getColor, setColor } from '../../../redux/searchSlice';
+import { getColor, setColor, setPage } from '../../../redux/searchSlice';
 
 const colorValues = [
     { value: "none", label: "All colors" },
@@ -28,6 +28,7 @@ export const Color = () => {
 
     const handleColorChange = (event: SelectChangeEvent) => {
         dispatch(setColor(event.target.value));
+        dispatch(setPage(1))
     };
 
     const ColorLabel = ({ value }: { value: string }) => {

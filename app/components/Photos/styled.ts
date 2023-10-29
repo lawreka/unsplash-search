@@ -40,7 +40,7 @@ export const GridPlaceholder = styled.div<{
     width: 100%;
     height: 100%;
     background: ${(props) => props.$src ? `url(${props.$src})` : "lightgrey"};
-    background-color: lightgrey;
+    background-color: ${(props) => props.$src ? "lightgrey" : "transparent"};
     aspect-ratio: 1;
     border-radius: 8px;
     background-size: cover;

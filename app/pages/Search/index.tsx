@@ -8,14 +8,13 @@ import { Order } from "../../components/Filters/Order"
 import { Color } from "../../components/Filters/Color"
 import { Pages } from "../../components/Photos/Pagination"
 import { useAppDispatch, useAppSelector } from "../../redux/hooks"
-import { setLoading, setResults, setError, getPage, getQuery, getResults, getOrderBy, getColor } from "../../redux/searchSlice"
+import { setLoading, setResults, setError, getQuery, getResults, getOrderBy, getColor } from "../../redux/searchSlice"
 import { getSearchResults } from "../../lib/search"
 
 import { SearchPageWrapper, SearchBarWrapper } from "./styled"
 
 export const SearchPage = () => {
     const dispatch = useAppDispatch();
-    const page = useAppSelector(getPage);
     const query = useAppSelector(getQuery);
     const orderBy = useAppSelector(getOrderBy);
     const color = useAppSelector(getColor);
@@ -24,7 +23,7 @@ export const SearchPage = () => {
     useEffect(() => {
         if (query.length > 0) {
             dispatch(setLoading(true))
-            getSearchResults({ page, query, orderBy, color }).then((res) => {
+            getSearchResults({ query, orderBy, color }).then((res) => {
                 if (res?.data.errors) {
                     console.warn("ERROR", res.data.errors[0])
                     dispatch(setError(true))
@@ -38,7 +37,7 @@ export const SearchPage = () => {
                 }
             })
         }
-    }, [page, query, orderBy, color])
+    }, [query, orderBy, color])
 
     return (
         <SearchPageWrapper>

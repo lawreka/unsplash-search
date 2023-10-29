@@ -1,12 +1,14 @@
 import Pagination from '@mui/material/Pagination';
 
 import { useAppSelector, useAppDispatch } from '../../../redux/hooks';
-import { getPage, setPage } from '../../../redux/searchSlice';
+import { getPage, setPage, getResults } from '../../../redux/searchSlice';
 
 import { PaginationWrapper } from './styled';
 export const Pages = () => {
     const page = useAppSelector(getPage);
+    const results = useAppSelector(getResults);
     const dispatch = useAppDispatch();
+    const pageCount = Math.ceil(results.length / 6);
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setPage(value))
@@ -15,7 +17,7 @@ export const Pages = () => {
     return (
         <PaginationWrapper>
             <Pagination
-                count={10}
+                count={pageCount}
                 shape="rounded"
                 page={page}
                 onChange={handleChange}
