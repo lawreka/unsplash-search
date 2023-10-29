@@ -47,7 +47,7 @@ export const SearchPage = () => {
                 <Color />
             </SearchBarWrapper>
             <Photos />
-            {results?.length > 0 ?
+            {results?.length > 0 && query.length > 0 ?
                 <Pages />
             : null}
         </SearchPageWrapper>

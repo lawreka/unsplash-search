@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "../../redux/hooks";
-import { getLoading, getResults, getPage, getError, getQuery, setLoading } from "../../redux/searchSlice";
+import { getLoading, getResults, getPage, getError, getQuery, getColor } from "../../redux/searchSlice";
 import { PhotosWrapper, PhotosGrid, GridPlaceholder, ErrorWrapper } from "./styled";
 
 export const Photos = () => {
@@ -11,6 +11,7 @@ export const Photos = () => {
     const loading = useAppSelector(getLoading);
     const error = useAppSelector(getError);
     const query = useAppSelector(getQuery);
+    const color = useAppSelector(getColor);
     const resultsPlaceholder = [0, 1, 2, 3, 4, 5];
     
     useEffect(() => {
@@ -52,22 +53,30 @@ export const Photos = () => {
                 </PhotosWrapper>
             )
         } else {
-            if (query.length > 0 && results.length < 1) {
+            if (query.length > 0 && results.length < 1 && loading !== true) {
                 return (
                     <ErrorWrapper>
-                        <div>no results for {query}</div>
                         <img src="./no-photos.png" />
+                        {color !== "none" ?
+                            (
+                                <div>no {color}-colored "{query}" found</div>
+                            ) : 
+                            (
+                                <div>no results for "{query}"</div>
+                            )
+                        }
                         <div>search again or try adjusting your filters</div>
                     </ErrorWrapper>
                 )
             } else {
-                return (
-                    <ErrorWrapper>
-                        <div>search for photos!</div>
-                    </ErrorWrapper>
-                )
+                if (query.length < 1) {
+                    return (
+                        <ErrorWrapper>
+                            <div>search for photos!</div>
+                        </ErrorWrapper>
+                    )
+                }
             }
-            
         }
         
     }

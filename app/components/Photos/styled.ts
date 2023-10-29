@@ -11,7 +11,6 @@ export const PhotosGrid = styled.div`
     width: 100%;
     grid-template-columns: auto auto auto;
     gap: 16px;
-    background-color: lavender;
     margin-bottom: 24px;
 
     @media (max-width: 768px) {
@@ -29,6 +28,11 @@ export const ErrorWrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex: 1;
+
+    img {
+        width: 200px;
+        height: auto;
+    }
 `;
 
 
