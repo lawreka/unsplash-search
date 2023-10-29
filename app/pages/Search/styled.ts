@@ -8,3 +8,8 @@ export const SearchPageWrapper = styled.div`
     display: flex;
     flex-direction: column;
 `;
+
+export const SearchBarWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+`;

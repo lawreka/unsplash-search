@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
 import Pagination from '@mui/material/Pagination';
 
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getLoading, getPage, getResults, setPage, setResults, getError, setLoading, setError } from "../../redux/searchSlice";
-import { getSearchResults } from '../../lib/search';
+import { getLoading, getPage, getResults, setPage, getError, getQuery } from "../../redux/searchSlice";
 
 import { PhotosWrapper, PhotosGrid, ErrorWrapper } from "./styled"
 
@@ -13,36 +11,21 @@ export const Photos = () => {
     const results = useAppSelector(getResults);
     const loading = useAppSelector(getLoading);
     const error = useAppSelector(getError);
+    const query = useAppSelector(getQuery);
 
     const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setPage(value))
     }
 
-    useEffect(() => {
-        dispatch(setLoading(true))
-        getSearchResults({ page }).then((res) => {
-            if (res?.data.errors) {
-                console.warn("ERROR", res.data.errors[0])
-                dispatch(setError(true))
-                dispatch(setResults([]))
-                dispatch(setLoading(false))
-            }
-            if (res?.data?.results) {
-                dispatch(setError(false))
-                dispatch(setResults(res.data.results))
-                dispatch(setLoading(false))
-            }
-        })
-    }, [page])
-
     if (loading == true) {
         return (
             <PhotosWrapper>
                 <PhotosGrid>
-                    {results.map((photo) => {
+                    {results.map((photo, index) => {
                         return (
                             <img
-                                src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Grey_background.jpg"
+                                key={`loading${index}`}
+                                src="/Grey_background.jpeg"
                             />
                         )
                     })}
@@ -75,6 +58,7 @@ export const Photos = () => {
                             {results.map((photo) => {
                                 return (
                                     <img
+                                        key={photo.urls.regular}
                                         src={photo.urls.regular}
                                     />
                                 )
@@ -89,9 +73,16 @@ export const Photos = () => {
                     </PhotosWrapper>
                 )
             } else {
-                return (
-                    <div>No results</div>
-                )
+                if (query.length > 0) {
+                    return (
+                        <div>No results</div>
+                    )
+                } else {
+                    return (
+                        <div>Search for some pictures</div>
+                    )
+                }
+                
             }
         }
     }    
