@@ -16,7 +16,6 @@ export const SearchBar = () => {
     const [searchInput, setSearchInput] = useState(query);
     const dispatch = useAppDispatch();
     
-    
     const handleChange = (queryString: string) => {
         setSearchInput(queryString)
     }
@@ -34,6 +33,7 @@ export const SearchBar = () => {
 
     return (
         <TextField
+            data-testid="search-input"
             id="search-input"
             sx={{ flex: 1 }}
             variant="outlined"

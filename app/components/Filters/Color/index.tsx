@@ -47,6 +47,7 @@ export const Color = () => {
     return (
         <FormControl>
             <Select
+                data-testid="color-filter"
                 id="color-filter"
                 value={color}
                 onChange={handleColorChange}

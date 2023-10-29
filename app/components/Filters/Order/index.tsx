@@ -28,6 +28,7 @@ export const Order = () => {
     return (
         <FormControl>
             <Select
+                data-testid="order-filter"
                 id="sort-filter"
                 value={orderBy}
                 onChange={handleOrderChange}

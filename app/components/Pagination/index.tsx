@@ -15,7 +15,7 @@ export const Pages = () => {
     }
 
     return (
-        <PaginationWrapper>
+        <PaginationWrapper data-testid="pagination">
             <Pagination
                 count={pageCount}
                 shape="rounded"

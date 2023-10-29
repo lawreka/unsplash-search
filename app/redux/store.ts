@@ -7,17 +7,13 @@ export const store = configureStore({
     reducer: searchReducer,
 })
 
-const rootReducer = combineReducers({
-    reducer: searchReducer,
-})
-
 export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
     return configureStore({
-        reducer: rootReducer,
+        reducer: searchReducer,
         preloadedState
     })
 }
 
-export type RootState = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof searchReducer>
 export type AppStore = ReturnType<typeof setupStore>
 export type AppDispatch = AppStore['dispatch']

@@ -2,10 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
 type Photo = {
     id: number;
-    width: number;
-    height: number;
-    urls: { large: string; regular: string; raw: string; small: string };
-    color: string;
+    urls: { regular: string; };
     description: string;
 };
 
