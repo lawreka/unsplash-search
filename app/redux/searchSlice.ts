@@ -27,7 +27,7 @@ interface SearchState {
     color: ColorFilter
 }
 
-const initialState: SearchState = {
+export const initialState: SearchState = {
     page: 1,
     results: [],
     loading: false,

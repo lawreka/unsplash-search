@@ -23,7 +23,7 @@ export const Photos = () => {
             }
         }
         
-        if (results.length > 0) {
+        if (results?.length > 0) {
             splitIntoPages(results);
             setCurrentPageResults(pages[page - 1]);
         }
@@ -37,7 +37,7 @@ export const Photos = () => {
             </ErrorWrapper>
         )
     } else {
-        if (query.length > 0 && results.length > 0) {
+        if (query?.length > 0 && results.length > 0) {
             return (
                 <PhotosWrapper>
                     <PhotosGrid>
@@ -53,7 +53,7 @@ export const Photos = () => {
                 </PhotosWrapper>
             )
         } else {
-            if (query.length > 0 && results.length < 1 && loading !== true) {
+            if (query?.length > 0 && results.length < 1 && loading !== true) {
                 return (
                     <ErrorWrapper>
                         <img src="./no-photos.png" />
@@ -69,7 +69,7 @@ export const Photos = () => {
                     </ErrorWrapper>
                 )
             } else {
-                if (query.length < 1) {
+                if (query?.length < 1) {
                     return (
                         <ErrorWrapper>
                             <div>search for photos!</div>

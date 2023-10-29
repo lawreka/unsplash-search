@@ -27,15 +27,22 @@
       "redux/*": ["./app/redux/*"],
       "lib/*": ["./app/lib/*"],
       "pages/*": ["./app/pages/*"]
-    }
+    },
+    "types": [
+      "node",
+      "jest",
+      "@testing-library/jest-dom"
+    ],
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "jest.config.js",
+    "__tests__/*.tsx" 
   ],
   "exclude": [
     "node_modules"
-  ]
+  ],
 }

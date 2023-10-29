@@ -21,7 +21,7 @@ export const SearchPage = () => {
     const results = useAppSelector(getResults)
 
     useEffect(() => {
-        if (query.length > 0) {
+        if (query?.length > 0) {
             dispatch(setLoading(true))
             getSearchResults({ query, orderBy, color }).then((res) => {
                 if (res?.data.errors) {
@@ -40,7 +40,7 @@ export const SearchPage = () => {
     }, [query, orderBy, color])
 
     return (
-        <SearchPageWrapper>
+        <SearchPageWrapper data-testid="search-page">
             <SearchBarWrapper>
                 <SearchBar />
                 <Order />
