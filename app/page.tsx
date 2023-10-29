@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Button } from './components/Button'
+import { SearchPage } from './pages/Search'
 
 export default function Page() {
-    return <Button />
+    return <SearchPage />
 }
