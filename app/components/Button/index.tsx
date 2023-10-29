@@ -1,8 +1,11 @@
 "use client"
 
 const getSearchResults = async () => {
-    const response = await fetch("/api/search?query=dog", {
-    });
+    const query = "cat";
+    const page = 1;
+    const perPage = 6;
+    const fetchUrl = `/api/search?query=${query}&page=${1}&perPage=${perPage}`
+    const response = await fetch(fetchUrl);
     return response.json();
 }
 
