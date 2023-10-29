@@ -7,8 +7,15 @@ export async function GET(request: NextRequest) {
     const perPage = searchParams.get('perPage')
     const orderBy = searchParams.get('orderBy')
     const color = searchParams.get('color')
-    const fetchUrl = `https://api.unsplash.com/search/photos?query=${query}&page=${page}&per_page=${perPage}&order_by=${orderBy}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`
-    const fetchUrlError = `https://api.unsplash.com/search/photos?query=${query}&page=${page}&per_page=${perPage}&client_id=asdf`
+    const baseUrl = "https://api.unsplash.com/search/photos?"
+    var fetchUrl = baseUrl;
+    if (color === "none") {
+        fetchUrl = `${baseUrl}query=${query}&page=${page}&per_page=${perPage}&order_by=${orderBy}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`
+    } else {
+        fetchUrl = `${baseUrl}query=${query}&page=${page}&per_page=${perPage}&order_by=${orderBy}&color=${color}&client_id=${process.env.UNSPLASH_ACCESS_KEY}`
+    }
+    // for testing errors
+    const fetchUrlError = `${baseUrl}query=${query}&page=${page}&per_page=${perPage}&client_id=asdf`
     const res = await fetch(fetchUrl, {
         headers: {
             'Content-Type': 'application/json',

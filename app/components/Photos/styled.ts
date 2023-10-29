@@ -6,21 +6,13 @@ export const PhotosWrapper = styled.div`
     justify-content: center;
     align-items: center;
 `;
-
 export const PhotosGrid = styled.div`
     display: grid;
+    width: 100%;
     grid-template-columns: auto auto auto;
     gap: 16px;
-    margin: 24px;
     background-color: lavender;
-
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        aspect-ratio: 1;
-        border-radius: 8px;
-    }
+    margin-bottom: 24px;
 
     @media (max-width: 768px) {
         grid-template-columns: auto auto;
@@ -37,4 +29,21 @@ export const ErrorWrapper = styled.div`
     justify-content: center;
     align-items: center;
     flex: 1;
+`;
+
+
+export const GridPlaceholder = styled.div<{
+    $loading: boolean;
+    $src: string;
+}>`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    background: ${(props) => props.$src ? `url(${props.$src})` : "lightgrey"};
+    background-color: lightgrey;
+    aspect-ratio: 1;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 `;

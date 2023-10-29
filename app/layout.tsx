@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
+import './global.css'
 
 import StyledComponentsRegistry from './lib/registry'
 
@@ -20,7 +21,7 @@ export default function RootLayout({
                 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
                 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
             </head>
-            <body style={{ margin: "0px" }}>
+            <body>
                 <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
             </body>
         </html>

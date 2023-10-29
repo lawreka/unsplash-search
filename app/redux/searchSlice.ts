@@ -6,10 +6,7 @@ type Photo = {
     height: number;
     urls: { large: string; regular: string; raw: string; small: string };
     color: string;
-    user: {
-        username: string;
-        name: string;
-    };
+    description: string;
 };
 
 type Page = number;

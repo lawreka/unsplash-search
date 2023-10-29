@@ -33,6 +33,7 @@ export const SearchBar = () => {
     return (
         <TextField
             id="search-input"
+            sx={{ flex: 1 }}
             variant="outlined"
             value={searchInput}
             placeholder="Search"

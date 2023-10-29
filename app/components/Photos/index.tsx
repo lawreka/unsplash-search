@@ -1,89 +1,55 @@
-import Pagination from '@mui/material/Pagination';
-
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getLoading, getPage, getResults, setPage, getError, getQuery } from "../../redux/searchSlice";
-
-import { PhotosWrapper, PhotosGrid, ErrorWrapper } from "./styled"
+import { useAppSelector } from "../../redux/hooks";
+import { getLoading, getResults, getError, getQuery } from "../../redux/searchSlice";
+import { PhotosWrapper, PhotosGrid, GridPlaceholder, ErrorWrapper } from "./styled";
 
 export const Photos = () => {
-    const page = useAppSelector(getPage);
-    const dispatch = useAppDispatch();
     const results = useAppSelector(getResults);
     const loading = useAppSelector(getLoading);
     const error = useAppSelector(getError);
     const query = useAppSelector(getQuery);
+    const resultsPlaceholder = [0, 1, 2, 3, 4, 5];
 
-    const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
-        dispatch(setPage(value))
-    }
-
-    if (loading == true) {
+    if (error === true) {
         return (
-            <PhotosWrapper>
-                <PhotosGrid>
-                    {results.map((photo, index) => {
-                        return (
-                            <img
-                                key={`loading${index}`}
-                                src="/Grey_background.jpeg"
-                            />
-                        )
-                    })}
-                </PhotosGrid>
-                <Pagination
-                    count={10}
-                    shape="rounded"
-                    page={page}
-                    onChange={handleChange}
-                />
-            </PhotosWrapper>
+            <ErrorWrapper>
+                <div>uh oh, something went wrong</div>
+                <div>search again?</div>
+            </ErrorWrapper>
         )
     } else {
-        if (error == true) {
+        if (query.length > 0 && results.length > 0) {
             return (
-                <ErrorWrapper>
-                    <div>
-                        Oh no! Something went wrong :(
-                    </div>
-                    <div>
-                        Try to search again?
-                    </div>
-                </ErrorWrapper>
+                <PhotosWrapper>
+                    <PhotosGrid>
+                        {resultsPlaceholder.map((n) => {
+                            const key = results[n]?.id || n;
+                            const src = results[n]?.urls?.regular || "";
+                            return (
+                                <GridPlaceholder key={key} $src={src} $loading={loading} />
+                            )
+                        }
+                        )}
+                    </PhotosGrid>
+                </PhotosWrapper>
             )
         } else {
-            if (results.length > 0) {
+            if (query.length > 0) {
                 return (
-                    <PhotosWrapper>
-                        <PhotosGrid>
-                            {results.map((photo) => {
-                                return (
-                                    <img
-                                        key={photo.urls.regular}
-                                        src={photo.urls.regular}
-                                    />
-                                )
-                            })}
-                        </PhotosGrid>
-                        <Pagination
-                            count={10}
-                            shape="rounded"
-                            page={page}
-                            onChange={handleChange}
-                        />
-                    </PhotosWrapper>
+                    <ErrorWrapper>
+                        <div>no results for {query}</div>
+                        <img src="./no-photos.png" />
+                        <div>search again or try adjusting your filters</div>
+                    </ErrorWrapper>
                 )
             } else {
-                if (query.length > 0) {
-                    return (
-                        <div>No results</div>
-                    )
-                } else {
-                    return (
-                        <div>Search for some pictures</div>
-                    )
-                }
-                
+                return (
+                    <ErrorWrapper>
+                        <div>search for photos!</div>
+                    </ErrorWrapper>
+                )
             }
+            
         }
-    }    
+        
+    }
 }
