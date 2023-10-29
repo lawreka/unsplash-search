@@ -30,3 +30,11 @@ export const PhotosGrid = styled.div`
         grid-template-columns: auto;
     }
 `;
+
+export const ErrorWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+`;
