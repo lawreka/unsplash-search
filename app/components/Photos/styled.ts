@@ -14,6 +14,14 @@ export const PhotosGrid = styled.div`
     margin: 24px;
     background-color: lavender;
 
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        aspect-ratio: 1;
+        border-radius: 8px;
+    }
+
     @media (max-width: 768px) {
         grid-template-columns: auto auto;
     }
