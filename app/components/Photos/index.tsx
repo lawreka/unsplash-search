@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useAppSelector } from "redux/hooks";
 import { getLoading, getResults, getPage, getError, getQuery, getColor } from "redux/searchSlice";
-import { PhotosWrapper, PhotosGrid, GridPlaceholder, ErrorWrapper } from "./styled";
+
+import { NoResults } from "./NoResults";
+import { Error } from "./Error";
+import { PhotosWrapper, PhotosGrid, GridPlaceholder, Wrapper } from "./styled";
 
 export const Photos = () => {
     const page = useAppSelector(getPage);
@@ -26,58 +29,43 @@ export const Photos = () => {
         if (results?.length > 0) {
             splitIntoPages(results);
             setCurrentPageResults(pages[page - 1]);
+        } else {
+            setCurrentPageResults([])
         }
     }, [page, results])
 
-    if (error === true) {
+    const errorState = error === true;
+    const loadingState = loading === true;
+    const emptyNoQueryYet = !errorState && !loadingState && query.length < 1 && results.length < 1;
+    const emptyNoResults = !errorState && !loadingState && query.length > 0 && results.length < 1;
+    // const resultsOrLoading = loadingState || results.length > 0;
+
+    if (errorState == true) {
+        return <Error />
+    } else if (emptyNoQueryYet == true) {
         return (
-            <ErrorWrapper>
-                <div>uh oh, something went wrong</div>
-                <div>search again?</div>
-            </ErrorWrapper>
+            <Wrapper data-testid="results-no-query">
+                <div>search for photos!</div>
+            </Wrapper>
+        )
+    } else if (emptyNoResults == true) {
+        return (
+            <NoResults color={color} query={query} />
         )
     } else {
-        if (query?.length > 0 && results.length > 0) {
-            return (
-                <PhotosWrapper>
-                    <PhotosGrid>
-                        {resultsPlaceholder.map((n) => {
-                            const key = currentPageResults?.[n]?.id || n;
-                            const src = currentPageResults?.[n]?.urls?.regular || "";
-                            return (
-                                <GridPlaceholder key={key} $src={src} $loading={loading} />
-                            )
-                        }
-                        )}
-                    </PhotosGrid>
-                </PhotosWrapper>
-            )
-        } else {
-            if (query?.length > 0 && results.length < 1 && loading !== true) {
-                return (
-                    <ErrorWrapper>
-                        <img src="./no-photos.png" />
-                        {color !== "none" ?
-                            (
-                                <div>no {color}-colored "{query}" found</div>
-                            ) : 
-                            (
-                                <div>no results for "{query}"</div>
-                            )
-                        }
-                        <div>search again or try adjusting your filters</div>
-                    </ErrorWrapper>
-                )
-            } else {
-                if (query?.length < 1) {
-                    return (
-                        <ErrorWrapper>
-                            <div>search for photos!</div>
-                        </ErrorWrapper>
-                    )
-                }
-            }
-        }
-        
+        return (
+            <PhotosWrapper data-testid="results-or-loading">
+                <PhotosGrid>
+                    {resultsPlaceholder.map((n) => {
+                        const key = currentPageResults?.[n]?.id || n;
+                        const src = currentPageResults?.[n]?.urls?.regular || "";
+                        return (
+                            <GridPlaceholder key={key} $src={src} $loading={loading} />
+                        )
+                    }
+                    )}
+                </PhotosGrid>
+            </PhotosWrapper>
+        )
     }
 }

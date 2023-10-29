@@ -22,7 +22,7 @@ export const PhotosGrid = styled.div`
     }
 `;
 
-export const ErrorWrapper = styled.div`
+export const Wrapper = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -3,6 +3,7 @@ import { styled } from "styled-components";
 export const SearchPageWrapper = styled.div`
     position: absolute;
     width: 100%;
+    max-width: 1200px;
     height: 100%;
     display: flex;
     flex-direction: column;

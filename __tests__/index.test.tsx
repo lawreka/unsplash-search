@@ -5,7 +5,7 @@
 import { screen } from '@testing-library/react'
 import { SearchPage } from 'pages/Search'
 import { initialState } from 'redux/searchSlice'
-
+import { Photos } from 'components/Photos'
 import { renderWithProviders } from '../testutils'
 
 jest.mock("../app/lib/search", () => {
@@ -45,5 +45,76 @@ describe('Search Page', () => {
 
         const pagination = screen.queryByTestId('pagination')
         expect(pagination).toBeInTheDocument()
+    })
+})
+
+describe('Photos', () => {
+    it('renders search for photos!', () => {
+        renderWithProviders(<Photos />, {
+            preloadedState: {
+                ...initialState,
+            }
+        })
+
+        const start = screen.getByTestId('results-no-query')
+        expect(start).toBeInTheDocument();
+        const error = screen.queryByTestId('results-error')
+        expect(error).toBeNull()        
+        const empty = screen.queryByTestId('results-no-results')
+        expect(empty).toBeNull()
+        const results = screen.queryByTestId('results-or-loading')
+        expect(results).toBeNull()
+    })
+    it('renders error', () => {
+        renderWithProviders(<Photos />, {
+            preloadedState: {
+                ...initialState,
+                error: true
+            }
+        })
+
+        const error = screen.getByTestId('results-error')
+        expect(error).toBeInTheDocument();
+        const start = screen.queryByTestId('results-no-query')
+        expect(start).toBeNull()
+        const empty = screen.queryByTestId('results-no-results')
+        expect(empty).toBeNull()
+        const results = screen.queryByTestId('results-or-loading')
+        expect(results).toBeNull()
+    })
+
+    it('renders no results', () => {
+        renderWithProviders(<Photos />, {
+            preloadedState: {
+                ...initialState,
+                query: "meow"
+            }
+        })
+
+        const empty = screen.getByTestId('results-no-results')
+        expect(empty).toBeInTheDocument();
+        const error = screen.queryByTestId('results-error')
+        expect(error).toBeNull()
+        const start = screen.queryByTestId('results-no-query')
+        expect(start).toBeNull()
+        const results = screen.queryByTestId('results-or-loading')
+        expect(results).toBeNull()
+    })
+    it('renders results', () => {
+        renderWithProviders(<Photos />, {
+            preloadedState: {
+                ...initialState,
+                results: [{ id: 123, urls: { regular: "1" }, description: "1" }]
+            }
+        })
+
+        const results = screen.getByTestId('results-or-loading')
+        expect(results).toBeInTheDocument() 
+        const empty = screen.queryByTestId('results-no-results')
+        expect(empty).toBeNull()
+        const error = screen.queryByTestId('results-error')
+        expect(error).toBeNull()
+        const start = screen.queryByTestId('results-no-query')
+        expect(start).toBeNull()  
     })
 })
